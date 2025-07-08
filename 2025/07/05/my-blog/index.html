@@ -405,9 +405,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/07/06/%E4%BF%9D%E7%A0%94%E6%94%BF%E7%AD%96/" title="保研政策">
+                      <a href="/2025/07/06/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0-test/" title="课程笔记-test">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">保研政策</span>
+                        <span class="hidden-mobile">课程笔记-test</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -426,55 +426,65 @@
     <article id="comments" lazyload>
       
   <div id="giscus" class="giscus"></div>
-  <script>
+  <script type="text/javascript">
     Fluid.utils.loadComments('#giscus', function() {
-      const options = {"repo":"lemoon1206/lemoon1206.github.io","repo-id":"R_kbDOPE-twg","category":"Announcements","category-id":"DIC_kwDOPE-tws4Csoq3","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"strict":0,"input-position":"top","lang":"zh-CN"};
-      
-      // 构建Giscus属性
-      const attributes = {
-        'data-repo': options.repo,
-        'data-repo-id': options['repo-id'],
-        'data-category': options.category,
-        'data-category-id': options['category-id'],
-        'data-mapping': options.mapping || 'pathname',
-        'data-strict': options.strict || '0',
-        'data-reactions-enabled': options['reactions-enabled'] || '1',
-        'data-emit-metadata': options['emit-metadata'] || '0',
-        'data-input-position': options['input-position'] || 'top',
-        'data-lang': options.lang || 'zh-CN',
-        'crossorigin': 'anonymous',
-        'async': ''
-      };
-
-      // 动态设置主题（跟随博客主题切换）
-      const isDarkMode = document.documentElement.getAttribute('data-user-color-scheme') === 'dark';
-      attributes['data-theme'] = isDarkMode 
-        ? (options['theme-dark'] || 'dark') 
-        : (options['theme-light'] || 'light');
-
-      // 创建脚本元素
-      const script = document.createElement('script');
-      script.src = 'https://giscus.app/client.js';
-      
-      // 设置属性
-      Object.entries(attributes).forEach(([key, value]) => {
-        if (value !== undefined && value !== null && value !== '') {
-          script.setAttribute(key, value);
-        }
+      var options = {"repo":"lemoon1206/lemoon1206.github.io","repo-id":"R_kbDOPE-twg","category":"Announcements","category-id":"DIC_kwDOPE-tws4Csoq3","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"strict":0,"input-position":"top","lang":"zh-CN"};
+      var attrs = {};
+      Object.keys(options).forEach(function(key) {
+        var dataKey = key.startsWith('data-') ? key : 'data-' + key;
+        attrs[dataKey] = options[key];
       });
-
-      // 插入到DOM
-      const container = document.getElementById('giscus');
-      container.appendChild(script);
+      // 主题色切换逻辑……
+      attrs['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark'
+        ? (theme.giscus['theme-dark']  || 'dark')
+        : (theme.giscus['theme-light'] || 'light');
+      var s = document.createElement('script');
+      s.src = 'https://giscus.app/client.js';
+      s.async = true;
+      s.crossOrigin = 'anonymous';
+      for (var attr in attrs) {
+        if (attrs[attr]) s.setAttribute(attr, attrs[attr]);
+      }
+      document.getElementsByTagName('head')[0].appendChild(s);
     });
   </script>
-  <noscript>请启用JavaScript查看评论</noscript>
+  <noscript>Please enable JavaScript to view the comments</noscript>
 
 
     </article>
   
 
 
+
+            <!-- Giscus 评论区 start -->
++           
+  <div id="giscus" class="giscus"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#giscus', function() {
+      var options = {"repo":"lemoon1206/lemoon1206.github.io","repo-id":"R_kbDOPE-twg","category":"Announcements","category-id":"DIC_kwDOPE-tws4Csoq3","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"strict":0,"input-position":"top","lang":"zh-CN"};
+      var attrs = {};
+      Object.keys(options).forEach(function(key) {
+        var dataKey = key.startsWith('data-') ? key : 'data-' + key;
+        attrs[dataKey] = options[key];
+      });
+      // 主题色切换逻辑……
+      attrs['data-theme'] = document.documentElement.getAttribute('data-user-color-scheme') === 'dark'
+        ? (theme.giscus['theme-dark']  || 'dark')
+        : (theme.giscus['theme-light'] || 'light');
+      var s = document.createElement('script');
+      s.src = 'https://giscus.app/client.js';
+      s.async = true;
+      s.crossOrigin = 'anonymous';
+      for (var attr in attrs) {
+        if (attrs[attr]) s.setAttribute(attr, attrs[attr]);
+      }
+      document.getElementsByTagName('head')[0].appendChild(s);
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
++           <!-- Giscus 评论区 end -->
           </article>
         </div>
       </div>
@@ -521,6 +531,8 @@
 
 
   
+
+
 
 
 
