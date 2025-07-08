@@ -411,8 +411,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/07/06/%E4%BF%9D%E7%A0%94%E6%94%BF%E7%AD%96/" title="保研政策">
-                        <span class="hidden-mobile">保研政策</span>
+                      <a href="/2025/07/06/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0-test/" title="课程笔记-test">
+                        <span class="hidden-mobile">课程笔记-test</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -427,27 +427,50 @@
   
     <article id="comments" lazyload>
       
-  <div id="valine"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#valine', function() {
-      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
-        var options = Object.assign(
-          {"appId":"0xrg8lwn3dgCxUn0J03LLxqj-MdYXbMMI","appKey":"QhuVWWvBsKjFYIBix18d1dbx","placeholder":"Welcome！","path":"window.location.pathname","serverURL":"","avatar":"retro"},
-          {
-            el: "#valine",
-            path: window.location.pathname
-          }
-        )
-        new Valine(options);
-        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
-          var imgSelector = '#valine .vcontent img:not(.vemoji)';
-          Fluid.plugins.imageCaption(imgSelector);
-          Fluid.plugins.fancyBox(imgSelector);
-        })
+  <div id="giscus" class="giscus"></div>
+  <script>
+    Fluid.utils.loadComments('#giscus', function() {
+      const options = {"repo":"lemoon1206/lemoon1206.github.io","repo-id":"R_kbDOPE-twg","category":"Announcements","category-id":"DIC_kwDOPE-tws4Csoq3","theme-light":"light","theme-dark":"dark","mapping":"pathname","reactions-enabled":1,"emit-metadata":0,"strict":0,"input-position":"top","lang":"zh-CN"};
+      
+      // 构建Giscus属性
+      const attributes = {
+        'data-repo': options.repo,
+        'data-repo-id': options['repo-id'],
+        'data-category': options.category,
+        'data-category-id': options['category-id'],
+        'data-mapping': options.mapping || 'pathname',
+        'data-strict': options.strict || '0',
+        'data-reactions-enabled': options['reactions-enabled'] || '1',
+        'data-emit-metadata': options['emit-metadata'] || '0',
+        'data-input-position': options['input-position'] || 'top',
+        'data-lang': options.lang || 'zh-CN',
+        'crossorigin': 'anonymous',
+        'async': ''
+      };
+
+      // 动态设置主题（跟随博客主题切换）
+      const isDarkMode = document.documentElement.getAttribute('data-user-color-scheme') === 'dark';
+      attributes['data-theme'] = isDarkMode 
+        ? (options['theme-dark'] || 'dark') 
+        : (options['theme-light'] || 'light');
+
+      // 创建脚本元素
+      const script = document.createElement('script');
+      script.src = 'https://giscus.app/client.js';
+      
+      // 设置属性
+      Object.entries(attributes).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== '') {
+          script.setAttribute(key, value);
+        }
       });
+
+      // 插入到DOM
+      const container = document.getElementById('giscus');
+      container.appendChild(script);
     });
   </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
+  <noscript>请启用JavaScript查看评论</noscript>
 
 
     </article>

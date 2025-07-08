@@ -297,10 +297,10 @@
     Fluid.utils.loadComments('#valine', function() {
       Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
         var options = Object.assign(
-          {"appId":"0xrg8lwn3dgCxUn0J03LLxqj-MdYXbMMI","appKey":"QhuVWWvBsKjFYIBix18d1dbx","placeholder":"Welcome！","path":"window.location.pathname","serverURL":"","avatar":"retro"},
+          {"appId":"0xrg8lwn3dgCxUn0J03LLxqj-MdYXbMMI","appKey":"QhuVWWvBsKjFYIBix18d1dbx","placeholder":"Welcome！","path":"{{ page.path }}","serverURL":"","avatar":"retro"},
           {
             el: "#valine",
-            path: window.location.pathname
+            path: {{ page.path }}
           }
         )
         new Valine(options);
