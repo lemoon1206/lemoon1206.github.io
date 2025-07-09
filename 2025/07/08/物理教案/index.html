@@ -552,41 +552,47 @@
   
   
     <article id="comments" lazyload>
-      <script>
-  // 监听主题变化（假设你使用类名切换主题）
+      <!-- 新增主题切换监听脚本（放在 giscus 脚本之前） -->
+<script>
+  // 1. 定义主题更新函数
   function updateGiscusTheme() {
-    const isDark = document.documentElement.classList.contains('dark-mode'); // 根据你的暗色模式类名调整
-    const theme = isDark ? 'dark' : 'light';
+    // 判断当前是否为暗色模式（根据你的博客主题逻辑调整）
+    // 示例1：如果博客暗色模式是通过 <html class="dark"> 实现的
+    const isDark = document.documentElement.classList.contains('dark');
+    // 示例2：如果通过 data-theme="dark" 实现
+    // const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     
+    const theme = isDark ? 'dark' : 'light';
     const iframe = document.querySelector('iframe.giscus-frame');
+    
+    // 向 Giscus 发送主题切换指令
     if (iframe) {
       iframe.contentWindow.postMessage({
         giscus: {
-          setConfig: {
-            theme: theme
-          }
+          setConfig: { theme: theme }
         }
       }, 'https://giscus.app');
     }
   }
 
-  // 初始化主题
+  // 2. 初始化监听（页面加载 + 主题变化）
   document.addEventListener('DOMContentLoaded', () => {
-    // 检测系统主题变化
-    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    darkModeMediaQuery.addEventListener('change', updateGiscusTheme);
+    // 监听系统主题变化（如用户切换操作系统深色模式）
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateGiscusTheme);
     
-    // 检测你的博客主题切换（根据你的实际切换机制）
+    // 监听博客主题手动切换（通过 MutationObserver 检测 HTML 类名或属性变化）
     const observer = new MutationObserver(updateGiscusTheme);
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ['class'] // 根据你切换主题的属性调整
+      attributeFilter: ['class', 'data-theme'] // 根据你的博客主题切换方式调整
     });
     
-    updateGiscusTheme(); // 初始设置
+    // 首次加载时立即设置主题
+    updateGiscusTheme();
   });
 </script>
 
+<!-- 原有的 Giscus 配置（保留你的参数） -->
 <script src="https://giscus.app/client.js"
         data-repo="lemoon1206/lemoon1206.github.io"
         data-repo-id="R_kgDOPE-twg"
@@ -608,41 +614,47 @@
 
 
             <!-- Giscus 评论区 start -->
-            <script>
-  // 监听主题变化（假设你使用类名切换主题）
+            <!-- 新增主题切换监听脚本（放在 giscus 脚本之前） -->
+<script>
+  // 1. 定义主题更新函数
   function updateGiscusTheme() {
-    const isDark = document.documentElement.classList.contains('dark-mode'); // 根据你的暗色模式类名调整
-    const theme = isDark ? 'dark' : 'light';
+    // 判断当前是否为暗色模式（根据你的博客主题逻辑调整）
+    // 示例1：如果博客暗色模式是通过 <html class="dark"> 实现的
+    const isDark = document.documentElement.classList.contains('dark');
+    // 示例2：如果通过 data-theme="dark" 实现
+    // const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     
+    const theme = isDark ? 'dark' : 'light';
     const iframe = document.querySelector('iframe.giscus-frame');
+    
+    // 向 Giscus 发送主题切换指令
     if (iframe) {
       iframe.contentWindow.postMessage({
         giscus: {
-          setConfig: {
-            theme: theme
-          }
+          setConfig: { theme: theme }
         }
       }, 'https://giscus.app');
     }
   }
 
-  // 初始化主题
+  // 2. 初始化监听（页面加载 + 主题变化）
   document.addEventListener('DOMContentLoaded', () => {
-    // 检测系统主题变化
-    const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    darkModeMediaQuery.addEventListener('change', updateGiscusTheme);
+    // 监听系统主题变化（如用户切换操作系统深色模式）
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateGiscusTheme);
     
-    // 检测你的博客主题切换（根据你的实际切换机制）
+    // 监听博客主题手动切换（通过 MutationObserver 检测 HTML 类名或属性变化）
     const observer = new MutationObserver(updateGiscusTheme);
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ['class'] // 根据你切换主题的属性调整
+      attributeFilter: ['class', 'data-theme'] // 根据你的博客主题切换方式调整
     });
     
-    updateGiscusTheme(); // 初始设置
+    // 首次加载时立即设置主题
+    updateGiscusTheme();
   });
 </script>
 
+<!-- 原有的 Giscus 配置（保留你的参数） -->
 <script src="https://giscus.app/client.js"
         data-repo="lemoon1206/lemoon1206.github.io"
         data-repo-id="R_kgDOPE-twg"
