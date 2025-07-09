@@ -552,66 +552,62 @@
   
   
     <article id="comments" lazyload>
-      <!-- 修改后的 giscus.ejs 文件 -->
-<script>
-  // 确保评论框主题与博客主题同步的解决方案
-  (function() {
-    // 1. 定义主题更新函数
-    function updateGiscusTheme() {
-      // 检测当前博客主题（根据您的实际实现调整）
-      const isDarkMode = 
-        document.documentElement.classList.contains('dark') || 
-        document.documentElement.getAttribute('data-theme') === 'dark';
-      
-      // 确定对应的主题名称
-      const theme = isDarkMode ? 'dark' : 'light';
-      
-      // 查找 Giscus iframe
-      const giscusFrame = document.querySelector('iframe.giscus-frame');
-      
-      // 如果 iframe 已加载，发送主题更新指令
-      if (giscusFrame && giscusFrame.contentWindow) {
-        giscusFrame.contentWindow.postMessage({
-          giscus: {
-            setConfig: {
-              theme: theme
-            }
+      <script>
+  // 反相主题控制函数
+  function invertGiscusTheme() {
+    // 检测当前博客主题
+    const isDarkMode = 
+      document.documentElement.classList.contains('dark') || 
+      document.documentElement.getAttribute('data-theme') === 'dark';
+    
+    // 反相设置：亮主题下用暗评论框，暗主题下用亮评论框
+    const theme = isDarkMode ? 'light' : 'dark';
+    
+    // 查找 Giscus iframe
+    const giscusFrame = document.querySelector('iframe.giscus-frame');
+    
+    // 如果 iframe 已加载，发送主题更新指令
+    if (giscusFrame && giscusFrame.contentWindow) {
+      giscusFrame.contentWindow.postMessage({
+        giscus: {
+          setConfig: {
+            theme: theme
           }
-        }, 'https://giscus.app');
-      }
-    }
-
-    // 2. 页面加载后初始化
-    document.addEventListener('DOMContentLoaded', function() {
-      // 监听博客主题变化
-      const observer = new MutationObserver(updateGiscusTheme);
-      observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['class', 'data-theme']
-      });
-      
-      // 初始设置主题（延迟确保 iframe 加载）
-      setTimeout(updateGiscusTheme, 1000);
-      
-      // 添加 Giscus 加载完成后的检查
-      window.addEventListener('message', function(event) {
-        if (event.origin === 'https://giscus.app' && event.data && event.data.giscus) {
-          updateGiscusTheme();
         }
-      });
+      }, 'https://giscus.app');
+    }
+  }
+
+  // 页面加载后初始化
+  document.addEventListener('DOMContentLoaded', function() {
+    // 监听博客主题变化
+    const observer = new MutationObserver(invertGiscusTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class', 'data-theme']
     });
     
-    // 3. 添加额外的主题检查（每2秒检查一次直到加载完成）
-    const themeCheckInterval = setInterval(function() {
-      if (document.querySelector('iframe.giscus-frame')) {
-        updateGiscusTheme();
-        clearInterval(themeCheckInterval);
+    // 初始设置主题
+    setTimeout(invertGiscusTheme, 1000);
+    
+    // 添加 Giscus 加载完成后的检查
+    window.addEventListener('message', function(event) {
+      if (event.origin === 'https://giscus.app' && event.data && event.data.giscus) {
+        invertGiscusTheme();
       }
-    }, 2000);
-  })();
+    });
+    
+    // 定期检查直到 Giscus 加载完成
+    const themeCheck = setInterval(function() {
+      if (document.querySelector('iframe.giscus-frame')) {
+        invertGiscusTheme();
+        clearInterval(themeCheck);
+      }
+    }, 1500);
+  });
 </script>
 
-<!-- Giscus 配置 -->
+<!-- Giscus 配置 - 强制默认亮色主题 -->
 <script src="https://giscus.app/client.js"
         data-repo="lemoon1206/lemoon1206.github.io"
         data-repo-id="R_kgDOPE-twg"
@@ -622,24 +618,34 @@
         data-reactions-enabled="1"
         data-emit-metadata="0"
         data-input-position="top"
-        data-theme="preferred_color_scheme" <!-- 保持此设置 -->
+        data-theme="light" <!-- 强制默认亮色 -->
         data-lang="zh-CN"
         crossorigin="anonymous"
         async>
 </script>
 
-<!-- CSS 保险机制 -->
+<!-- CSS 强制反相主题 -->
 <style>
-  /* 确保暗色模式下的评论框为暗色 */
-  html.dark .giscus, 
-  html.dark .giscus-frame {
+  /* 亮主题下强制暗色评论框 */
+  html:not(.dark) .giscus,
+  html:not(.dark) .giscus-frame {
     color-scheme: dark !important;
+    background-color: #1a1a1a !important;
+    color: #f0f0f0 !important;
   }
   
-  /* 确保亮色模式下的评论框为亮色 */
-  html:light.giscus, 
-  html:light .giscus-frame {
+  /* 暗主题下强制亮色评论框 */
+  html.dark .giscus,
+  html.dark .giscus-frame {
     color-scheme: light !important;
+    background-color: #ffffff !important;
+    color: #333333 !important;
+  }
+  
+  /* 确保覆盖所有内容 */
+  .giscus-frame {
+    background-color: inherit !important;
+    color: inherit !important;
   }
 </style>
     </article>
@@ -648,66 +654,62 @@
 
 
             <!-- Giscus 评论区 start -->
-            <!-- 修改后的 giscus.ejs 文件 -->
-<script>
-  // 确保评论框主题与博客主题同步的解决方案
-  (function() {
-    // 1. 定义主题更新函数
-    function updateGiscusTheme() {
-      // 检测当前博客主题（根据您的实际实现调整）
-      const isDarkMode = 
-        document.documentElement.classList.contains('dark') || 
-        document.documentElement.getAttribute('data-theme') === 'dark';
-      
-      // 确定对应的主题名称
-      const theme = isDarkMode ? 'dark' : 'light';
-      
-      // 查找 Giscus iframe
-      const giscusFrame = document.querySelector('iframe.giscus-frame');
-      
-      // 如果 iframe 已加载，发送主题更新指令
-      if (giscusFrame && giscusFrame.contentWindow) {
-        giscusFrame.contentWindow.postMessage({
-          giscus: {
-            setConfig: {
-              theme: theme
-            }
+            <script>
+  // 反相主题控制函数
+  function invertGiscusTheme() {
+    // 检测当前博客主题
+    const isDarkMode = 
+      document.documentElement.classList.contains('dark') || 
+      document.documentElement.getAttribute('data-theme') === 'dark';
+    
+    // 反相设置：亮主题下用暗评论框，暗主题下用亮评论框
+    const theme = isDarkMode ? 'light' : 'dark';
+    
+    // 查找 Giscus iframe
+    const giscusFrame = document.querySelector('iframe.giscus-frame');
+    
+    // 如果 iframe 已加载，发送主题更新指令
+    if (giscusFrame && giscusFrame.contentWindow) {
+      giscusFrame.contentWindow.postMessage({
+        giscus: {
+          setConfig: {
+            theme: theme
           }
-        }, 'https://giscus.app');
-      }
-    }
-
-    // 2. 页面加载后初始化
-    document.addEventListener('DOMContentLoaded', function() {
-      // 监听博客主题变化
-      const observer = new MutationObserver(updateGiscusTheme);
-      observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ['class', 'data-theme']
-      });
-      
-      // 初始设置主题（延迟确保 iframe 加载）
-      setTimeout(updateGiscusTheme, 1000);
-      
-      // 添加 Giscus 加载完成后的检查
-      window.addEventListener('message', function(event) {
-        if (event.origin === 'https://giscus.app' && event.data && event.data.giscus) {
-          updateGiscusTheme();
         }
-      });
+      }, 'https://giscus.app');
+    }
+  }
+
+  // 页面加载后初始化
+  document.addEventListener('DOMContentLoaded', function() {
+    // 监听博客主题变化
+    const observer = new MutationObserver(invertGiscusTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class', 'data-theme']
     });
     
-    // 3. 添加额外的主题检查（每2秒检查一次直到加载完成）
-    const themeCheckInterval = setInterval(function() {
-      if (document.querySelector('iframe.giscus-frame')) {
-        updateGiscusTheme();
-        clearInterval(themeCheckInterval);
+    // 初始设置主题
+    setTimeout(invertGiscusTheme, 1000);
+    
+    // 添加 Giscus 加载完成后的检查
+    window.addEventListener('message', function(event) {
+      if (event.origin === 'https://giscus.app' && event.data && event.data.giscus) {
+        invertGiscusTheme();
       }
-    }, 2000);
-  })();
+    });
+    
+    // 定期检查直到 Giscus 加载完成
+    const themeCheck = setInterval(function() {
+      if (document.querySelector('iframe.giscus-frame')) {
+        invertGiscusTheme();
+        clearInterval(themeCheck);
+      }
+    }, 1500);
+  });
 </script>
 
-<!-- Giscus 配置 -->
+<!-- Giscus 配置 - 强制默认亮色主题 -->
 <script src="https://giscus.app/client.js"
         data-repo="lemoon1206/lemoon1206.github.io"
         data-repo-id="R_kgDOPE-twg"
@@ -718,24 +720,34 @@
         data-reactions-enabled="1"
         data-emit-metadata="0"
         data-input-position="top"
-        data-theme="preferred_color_scheme" <!-- 保持此设置 -->
+        data-theme="light" <!-- 强制默认亮色 -->
         data-lang="zh-CN"
         crossorigin="anonymous"
         async>
 </script>
 
-<!-- CSS 保险机制 -->
+<!-- CSS 强制反相主题 -->
 <style>
-  /* 确保暗色模式下的评论框为暗色 */
-  html.dark .giscus, 
-  html.dark .giscus-frame {
+  /* 亮主题下强制暗色评论框 */
+  html:not(.dark) .giscus,
+  html:not(.dark) .giscus-frame {
     color-scheme: dark !important;
+    background-color: #1a1a1a !important;
+    color: #f0f0f0 !important;
   }
   
-  /* 确保亮色模式下的评论框为亮色 */
-  html:light.giscus, 
-  html:light .giscus-frame {
+  /* 暗主题下强制亮色评论框 */
+  html.dark .giscus,
+  html.dark .giscus-frame {
     color-scheme: light !important;
+    background-color: #ffffff !important;
+    color: #333333 !important;
+  }
+  
+  /* 确保覆盖所有内容 */
+  .giscus-frame {
+    background-color: inherit !important;
+    color: inherit !important;
   }
 </style>
             <!-- Giscus 评论区 end -->
