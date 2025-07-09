@@ -453,47 +453,52 @@
   
   
     <article id="comments" lazyload>
-      <!-- 新增主题切换监听脚本（放在 giscus 脚本之前） -->
-<script>
-  // 1. 定义主题更新函数
-  function updateGiscusTheme() {
-    // 判断当前是否为暗色模式（根据你的博客主题逻辑调整）
-    // 示例1：如果博客暗色模式是通过 <html class="dark"> 实现的
-    const isDark = document.documentElement.classList.contains('dark');
-    // 示例2：如果通过 data-theme="dark" 实现
-    // const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    
-    const theme = isDark ? 'dark' : 'light';
-    const iframe = document.querySelector('iframe.giscus-frame');
-    
-    // 向 Giscus 发送主题切换指令
-    if (iframe) {
-      iframe.contentWindow.postMessage({
+      <script>
+  // 强制同步主题函数（兼容所有场景）
+  function forceGiscusTheme() {
+    // 检测主题方式（根据你的博客实际逻辑二选一）
+    const isDark = 
+      document.documentElement.classList.contains('dark') ||  // 方式1：class="dark"
+      document.documentElement.getAttribute('data-theme') === 'dark'; // 方式2：data-theme="dark"
+
+    // 向 Giscus 发送精确主题指令（覆盖 preferred_color_scheme）
+    const giscusFrame = document.querySelector('iframe.giscus-frame');
+    if (giscusFrame) {
+      giscusFrame.contentWindow.postMessage({
         giscus: {
-          setConfig: { theme: theme }
+          setConfig: {
+            theme: isDark ? 'dark' : 'light' // 直接指定主题，不依赖系统偏好
+          }
         }
       }, 'https://giscus.app');
     }
   }
 
-  // 2. 初始化监听（页面加载 + 主题变化）
+  // 初始化监听
   document.addEventListener('DOMContentLoaded', () => {
-    // 监听系统主题变化（如用户切换操作系统深色模式）
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateGiscusTheme);
-    
-    // 监听博客主题手动切换（通过 MutationObserver 检测 HTML 类名或属性变化）
-    const observer = new MutationObserver(updateGiscusTheme);
+    // 监听博客主题切换（兼容手动切换和系统切换）
+    const observer = new MutationObserver(forceGiscusTheme);
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ['class', 'data-theme'] // 根据你的博客主题切换方式调整
+      attributeFilter: ['class', 'data-theme']
     });
-    
-    // 首次加载时立即设置主题
-    updateGiscusTheme();
+
+    // 首次加载 + 防闪烁延迟
+    setTimeout(forceGiscusTheme, 500);
+  });
+
+  // 备用：当 Giscus 加载完成时再次同步
+  window.addEventListener('load', () => {
+    const checkExist = setInterval(() => {
+      if (document.querySelector('iframe.giscus-frame')) {
+        forceGiscusTheme();
+        clearInterval(checkExist);
+      }
+    }, 300);
   });
 </script>
 
-<!-- 原有的 Giscus 配置（保留你的参数） -->
+<!-- Giscus 配置（关键修改：强制禁用动态主题） -->
 <script src="https://giscus.app/client.js"
         data-repo="lemoon1206/lemoon1206.github.io"
         data-repo-id="R_kgDOPE-twg"
@@ -504,58 +509,73 @@
         data-reactions-enabled="1"
         data-emit-metadata="0"
         data-input-position="top"
-        data-theme="preferred_color_scheme" <!-- 保持此设置 -->
+        data-theme="light" <!-- 强制默认亮色，由脚本控制实际值 -->
         data-lang="zh-CN"
         crossorigin="anonymous"
         async>
 </script>
+
+<style>
+  /* 终极保险：强制 iframe 颜色模式 */
+  html.dark .giscus-frame {
+    color-scheme: dark !important;
+  }
+  html:not(.dark) .giscus-frame {
+    color-scheme: light !important;
+  }
+</style>
     </article>
   
 
 
 
             <!-- Giscus 评论区 start -->
-            <!-- 新增主题切换监听脚本（放在 giscus 脚本之前） -->
-<script>
-  // 1. 定义主题更新函数
-  function updateGiscusTheme() {
-    // 判断当前是否为暗色模式（根据你的博客主题逻辑调整）
-    // 示例1：如果博客暗色模式是通过 <html class="dark"> 实现的
-    const isDark = document.documentElement.classList.contains('dark');
-    // 示例2：如果通过 data-theme="dark" 实现
-    // const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    
-    const theme = isDark ? 'dark' : 'light';
-    const iframe = document.querySelector('iframe.giscus-frame');
-    
-    // 向 Giscus 发送主题切换指令
-    if (iframe) {
-      iframe.contentWindow.postMessage({
+            <script>
+  // 强制同步主题函数（兼容所有场景）
+  function forceGiscusTheme() {
+    // 检测主题方式（根据你的博客实际逻辑二选一）
+    const isDark = 
+      document.documentElement.classList.contains('dark') ||  // 方式1：class="dark"
+      document.documentElement.getAttribute('data-theme') === 'dark'; // 方式2：data-theme="dark"
+
+    // 向 Giscus 发送精确主题指令（覆盖 preferred_color_scheme）
+    const giscusFrame = document.querySelector('iframe.giscus-frame');
+    if (giscusFrame) {
+      giscusFrame.contentWindow.postMessage({
         giscus: {
-          setConfig: { theme: theme }
+          setConfig: {
+            theme: isDark ? 'dark' : 'light' // 直接指定主题，不依赖系统偏好
+          }
         }
       }, 'https://giscus.app');
     }
   }
 
-  // 2. 初始化监听（页面加载 + 主题变化）
+  // 初始化监听
   document.addEventListener('DOMContentLoaded', () => {
-    // 监听系统主题变化（如用户切换操作系统深色模式）
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateGiscusTheme);
-    
-    // 监听博客主题手动切换（通过 MutationObserver 检测 HTML 类名或属性变化）
-    const observer = new MutationObserver(updateGiscusTheme);
+    // 监听博客主题切换（兼容手动切换和系统切换）
+    const observer = new MutationObserver(forceGiscusTheme);
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ['class', 'data-theme'] // 根据你的博客主题切换方式调整
+      attributeFilter: ['class', 'data-theme']
     });
-    
-    // 首次加载时立即设置主题
-    updateGiscusTheme();
+
+    // 首次加载 + 防闪烁延迟
+    setTimeout(forceGiscusTheme, 500);
+  });
+
+  // 备用：当 Giscus 加载完成时再次同步
+  window.addEventListener('load', () => {
+    const checkExist = setInterval(() => {
+      if (document.querySelector('iframe.giscus-frame')) {
+        forceGiscusTheme();
+        clearInterval(checkExist);
+      }
+    }, 300);
   });
 </script>
 
-<!-- 原有的 Giscus 配置（保留你的参数） -->
+<!-- Giscus 配置（关键修改：强制禁用动态主题） -->
 <script src="https://giscus.app/client.js"
         data-repo="lemoon1206/lemoon1206.github.io"
         data-repo-id="R_kgDOPE-twg"
@@ -566,11 +586,21 @@
         data-reactions-enabled="1"
         data-emit-metadata="0"
         data-input-position="top"
-        data-theme="preferred_color_scheme" <!-- 保持此设置 -->
+        data-theme="light" <!-- 强制默认亮色，由脚本控制实际值 -->
         data-lang="zh-CN"
         crossorigin="anonymous"
         async>
 </script>
+
+<style>
+  /* 终极保险：强制 iframe 颜色模式 */
+  html.dark .giscus-frame {
+    color-scheme: dark !important;
+  }
+  html:not(.dark) .giscus-frame {
+    color-scheme: light !important;
+  }
+</style>
             <!-- Giscus 评论区 end -->
           </article>
         </div>
