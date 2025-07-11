@@ -472,12 +472,18 @@
                   <article class="post-prev col-6">
                     
                     
+                      <a href="/2025/07/08/%E7%89%A9%E7%90%86%E6%95%99%E6%A1%88/" title="支教物理教案">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">支教物理教案</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/07/08/%E7%89%A9%E7%90%86%E6%95%99%E6%A1%88/" title="支教物理教案">
-                        <span class="hidden-mobile">支教物理教案</span>
+                      <a href="/2025/07/08/%E8%A5%BF%E6%96%B9%E7%BE%8E%E5%AD%A6%E5%AF%BC%E8%AE%BA%EF%BC%88%E6%95%A3%E8%A3%85%EF%BC%89/" title="西方美学导论">
+                        <span class="hidden-mobile">西方美学导论</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -491,44 +497,126 @@
   
   
     <article id="comments" lazyload>
-      <script src="https://giscus.app/client.js"
-        data-repo="lemoon1206/lemoon1206.github.io"
-        data-repo-id="R_kgDOPE-twg"
-        data-category="General"
-        data-category-id="DIC_kwDOPE-tws4Csog4"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        theme-light="light"     # 浅色模式主题
-        theme-dark="dark-dimmed" # 深色模式主题（推荐使用更暗的主题）
-        data-lang="zh-CN"
-        crossorigin="anonymous"
-        async>
+      
+<script>
+  // 自动检测主题变化
+  const getGiscusTheme = () => {
+    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return isDark ? 'dark_dimmed' : 'light';
+  };
+
+  // 动态加载Giscus
+  const loadGiscus = () => {
+    // 确保必要配置存在
+    if (!giscusCfg.repo || !giscusCfg.repo_id || !giscusCfg.category_id) {
+      console.error('Giscus配置不完整，无法加载评论系统');
+      return;
+    }
+    
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.setAttribute('data-repo', '');
+    script.setAttribute('data-repo-id', '');
+    script.setAttribute('data-category', '');
+    script.setAttribute('data-category-id', '');
+    script.setAttribute('data-mapping', 'pathname');
+    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-reactions-enabled', '1');
+    script.setAttribute('data-emit-metadata', '0');
+    script.setAttribute('data-input-position', 'top');
+    script.setAttribute('data-theme', getGiscusTheme());
+    script.setAttribute('data-lang', 'zh-CN');
+    script.crossOrigin = 'anonymous';
+    script.async = true;
+    
+    // 替换现有容器
+    const container = document.getElementById('giscus-container');
+    if (container) {
+      container.innerHTML = '';
+      container.appendChild(script);
+    }
+  };
+
+  // 初始加载
+  document.addEventListener('DOMContentLoaded', loadGiscus);
+
+  // 监听主题变化
+  const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  if (darkModeMediaQuery.addEventListener) {
+    darkModeMediaQuery.addEventListener('change', loadGiscus);
+  } else {
+    // 兼容旧版浏览器
+    darkModeMediaQuery.addListener(loadGiscus);
+  }
 </script>
+
+<!-- Giscus容器 -->
+<div id="giscus-container">
+  <!-- 脚本将动态加载到这里 -->
+</div>
     </article>
   
 
 
 
             <!-- Giscus 评论区 start -->
-            <script src="https://giscus.app/client.js"
-        data-repo="lemoon1206/lemoon1206.github.io"
-        data-repo-id="R_kgDOPE-twg"
-        data-category="General"
-        data-category-id="DIC_kwDOPE-tws4Csog4"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        theme-light="light"     # 浅色模式主题
-        theme-dark="dark-dimmed" # 深色模式主题（推荐使用更暗的主题）
-        data-lang="zh-CN"
-        crossorigin="anonymous"
-        async>
+            
+<script>
+  // 自动检测主题变化
+  const getGiscusTheme = () => {
+    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return isDark ? 'dark_dimmed' : 'light';
+  };
+
+  // 动态加载Giscus
+  const loadGiscus = () => {
+    // 确保必要配置存在
+    if (!giscusCfg.repo || !giscusCfg.repo_id || !giscusCfg.category_id) {
+      console.error('Giscus配置不完整，无法加载评论系统');
+      return;
+    }
+    
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.setAttribute('data-repo', '');
+    script.setAttribute('data-repo-id', '');
+    script.setAttribute('data-category', '');
+    script.setAttribute('data-category-id', '');
+    script.setAttribute('data-mapping', 'pathname');
+    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-reactions-enabled', '1');
+    script.setAttribute('data-emit-metadata', '0');
+    script.setAttribute('data-input-position', 'top');
+    script.setAttribute('data-theme', getGiscusTheme());
+    script.setAttribute('data-lang', 'zh-CN');
+    script.crossOrigin = 'anonymous';
+    script.async = true;
+    
+    // 替换现有容器
+    const container = document.getElementById('giscus-container');
+    if (container) {
+      container.innerHTML = '';
+      container.appendChild(script);
+    }
+  };
+
+  // 初始加载
+  document.addEventListener('DOMContentLoaded', loadGiscus);
+
+  // 监听主题变化
+  const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  if (darkModeMediaQuery.addEventListener) {
+    darkModeMediaQuery.addEventListener('change', loadGiscus);
+  } else {
+    // 兼容旧版浏览器
+    darkModeMediaQuery.addListener(loadGiscus);
+  }
 </script>
+
+<!-- Giscus容器 -->
+<div id="giscus-container">
+  <!-- 脚本将动态加载到这里 -->
+</div>
             <!-- Giscus 评论区 end -->
           </article>
         </div>

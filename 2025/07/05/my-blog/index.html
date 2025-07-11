@@ -424,44 +424,126 @@
   
   
     <article id="comments" lazyload>
-      <script src="https://giscus.app/client.js"
-        data-repo="lemoon1206/lemoon1206.github.io"
-        data-repo-id="R_kgDOPE-twg"
-        data-category="General"
-        data-category-id="DIC_kwDOPE-tws4Csog4"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        theme-light="light"     # 浅色模式主题
-        theme-dark="dark-dimmed" # 深色模式主题（推荐使用更暗的主题）
-        data-lang="zh-CN"
-        crossorigin="anonymous"
-        async>
+      
+<script>
+  // 自动检测主题变化
+  const getGiscusTheme = () => {
+    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return isDark ? 'dark_dimmed' : 'light';
+  };
+
+  // 动态加载Giscus
+  const loadGiscus = () => {
+    // 确保必要配置存在
+    if (!giscusCfg.repo || !giscusCfg.repo_id || !giscusCfg.category_id) {
+      console.error('Giscus配置不完整，无法加载评论系统');
+      return;
+    }
+    
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.setAttribute('data-repo', '');
+    script.setAttribute('data-repo-id', '');
+    script.setAttribute('data-category', '');
+    script.setAttribute('data-category-id', '');
+    script.setAttribute('data-mapping', 'pathname');
+    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-reactions-enabled', '1');
+    script.setAttribute('data-emit-metadata', '0');
+    script.setAttribute('data-input-position', 'top');
+    script.setAttribute('data-theme', getGiscusTheme());
+    script.setAttribute('data-lang', 'zh-CN');
+    script.crossOrigin = 'anonymous';
+    script.async = true;
+    
+    // 替换现有容器
+    const container = document.getElementById('giscus-container');
+    if (container) {
+      container.innerHTML = '';
+      container.appendChild(script);
+    }
+  };
+
+  // 初始加载
+  document.addEventListener('DOMContentLoaded', loadGiscus);
+
+  // 监听主题变化
+  const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  if (darkModeMediaQuery.addEventListener) {
+    darkModeMediaQuery.addEventListener('change', loadGiscus);
+  } else {
+    // 兼容旧版浏览器
+    darkModeMediaQuery.addListener(loadGiscus);
+  }
 </script>
+
+<!-- Giscus容器 -->
+<div id="giscus-container">
+  <!-- 脚本将动态加载到这里 -->
+</div>
     </article>
   
 
 
 
             <!-- Giscus 评论区 start -->
-            <script src="https://giscus.app/client.js"
-        data-repo="lemoon1206/lemoon1206.github.io"
-        data-repo-id="R_kgDOPE-twg"
-        data-category="General"
-        data-category-id="DIC_kwDOPE-tws4Csog4"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        theme-light="light"     # 浅色模式主题
-        theme-dark="dark-dimmed" # 深色模式主题（推荐使用更暗的主题）
-        data-lang="zh-CN"
-        crossorigin="anonymous"
-        async>
+            
+<script>
+  // 自动检测主题变化
+  const getGiscusTheme = () => {
+    const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return isDark ? 'dark_dimmed' : 'light';
+  };
+
+  // 动态加载Giscus
+  const loadGiscus = () => {
+    // 确保必要配置存在
+    if (!giscusCfg.repo || !giscusCfg.repo_id || !giscusCfg.category_id) {
+      console.error('Giscus配置不完整，无法加载评论系统');
+      return;
+    }
+    
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.setAttribute('data-repo', '');
+    script.setAttribute('data-repo-id', '');
+    script.setAttribute('data-category', '');
+    script.setAttribute('data-category-id', '');
+    script.setAttribute('data-mapping', 'pathname');
+    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-reactions-enabled', '1');
+    script.setAttribute('data-emit-metadata', '0');
+    script.setAttribute('data-input-position', 'top');
+    script.setAttribute('data-theme', getGiscusTheme());
+    script.setAttribute('data-lang', 'zh-CN');
+    script.crossOrigin = 'anonymous';
+    script.async = true;
+    
+    // 替换现有容器
+    const container = document.getElementById('giscus-container');
+    if (container) {
+      container.innerHTML = '';
+      container.appendChild(script);
+    }
+  };
+
+  // 初始加载
+  document.addEventListener('DOMContentLoaded', loadGiscus);
+
+  // 监听主题变化
+  const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  if (darkModeMediaQuery.addEventListener) {
+    darkModeMediaQuery.addEventListener('change', loadGiscus);
+  } else {
+    // 兼容旧版浏览器
+    darkModeMediaQuery.addListener(loadGiscus);
+  }
 </script>
+
+<!-- Giscus容器 -->
+<div id="giscus-container">
+  <!-- 脚本将动态加载到这里 -->
+</div>
             <!-- Giscus 评论区 end -->
           </article>
         </div>
