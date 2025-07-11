@@ -470,14 +470,30 @@
     const themeLight = 'light';
     const themeDark = 'dark-dimmed';
     
-    // 关键修复：使用 pathname 而不是 url
-    // 并添加 URL 规范化
+    // 关键修复：解决路径乱码问题
     const canonicalLink = document.querySelector('link[rel="canonical"]');
-    const pageUrl = canonicalLink ? canonicalLink.href : window.location.href;
-    const cleanUrl = new URL(pageUrl);
-    cleanUrl.hash = '';
-    cleanUrl.search = '';
-    const normalizedPath = cleanUrl.pathname; // 只使用路径部分
+    let pagePath = window.location.pathname;
+    
+    // 如果canonical链接存在且有效，优先使用
+    if (canonicalLink) {
+      try {
+        const canonicalUrl = new URL(canonicalLink.href);
+        pagePath = canonicalUrl.pathname;
+      } catch (e) {
+        console.error('解析canonical链接失败:', e);
+      }
+    }
+    
+    // 规范化路径 - 解决乱码问题
+    // 1. 移除多余的编码
+    // 2. 确保路径格式正确
+    pagePath = decodeURIComponent(pagePath)  // 先解码
+      .replace(/[^\x00-\x7F]/g, "")         // 移除非ASCII字符
+      .replace(/\s+/g, "-")                 // 空格转连字符
+      .replace(/\/{2,}/g, "/")              // 移除多余斜杠
+      .toLowerCase();                       // 统一小写
+    
+    console.log("使用的路径:", pagePath);
     
     // 创建脚本元素
     const script = document.createElement('script');
@@ -486,9 +502,9 @@
     script.setAttribute('data-repo-id', 'R_kbDOPE-twg');
     script.setAttribute('data-category', 'Announcements');
     script.setAttribute('data-category-id', 'DIC_kwDOPE-tws4Csoq3');
-    script.setAttribute('data-mapping', 'pathname'); // 修复：改为 pathname
-    script.setAttribute('data-term', normalizedPath); // 使用规范化的路径
-    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-mapping', 'pathname');
+    script.setAttribute('data-term', pagePath); // 使用规范化的路径
+    script.setAttribute('data-strict', '0'); // 强制设为0，允许自动创建
     script.setAttribute('data-reactions-enabled', '1');
     script.setAttribute('data-emit-metadata', '0');
     script.setAttribute('data-input-position', 'top');
@@ -508,6 +524,7 @@
       const iframe = document.querySelector('iframe.giscus-frame');
       if (iframe && iframe.contentWindow) {
         try {
+          // 发送主题更新消息
           iframe.contentWindow.postMessage({
             giscus: {
               setConfig: {
@@ -515,6 +532,9 @@
               }
             }
           }, 'https://giscus.app');
+          
+          // 同时更新data-theme属性
+          script.setAttribute('data-theme', theme);
         } catch (error) {
           console.error('主题更新失败:', error);
         }
@@ -525,7 +545,11 @@
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'data-user-color-scheme') {
+          // 立即更新主题
           updateGiscusTheme();
+          
+          // 添加额外延迟更新，确保生效
+          setTimeout(updateGiscusTheme, 300);
         }
       });
     });
@@ -534,12 +558,13 @@
       attributes: true
     });
     
-    // 添加错误处理
+    // 增强错误处理
     window.addEventListener('message', function(event) {
       if (event.origin === 'https://giscus.app') {
         // 处理主题更新
         if (event.data && event.data.giscus) {
           if (event.data.giscus.loading === false) {
+            // 加载完成后立即更新主题
             updateGiscusTheme();
           }
         }
@@ -560,15 +585,16 @@
                 <p>调试信息:</p>
                 <ul>
                   <li>映射方式: pathname</li>
-                  <li>路径: ${normalizedPath}</li>
+                  <li>路径: ${pagePath}</li>
                   <li>仓库: lemoon1206/lemoon1206.github.io</li>
                   <li>分类: Announcements</li>
+                  <li>主题: ${isDarkMode ? '暗色' : '亮色'}</li>
                 </ul>
               </div>
               <button onclick="location.reload()" style="padding: 8px 16px; background: #ff6b6b; color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">
                 重新加载
               </button>
-              <button onclick="window.open('https://github.com/lemoon1206/lemoon1206.github.io/discussions', '_blank')" style="padding: 8px 16px; background: #4dabf7; color: white; border: none; border-radius: 4px; cursor: pointer;">
+              <button onclick="window.open('https://github.com/lemoon1206/lemoon1206.github.io/discussions/categories/Announcements', '_blank')" style="padding: 8px 16px; background: #4dabf7; color: white; border: none; border-radius: 4px; cursor: pointer;">
                 检查讨论区
               </button>
             </div>
@@ -578,29 +604,44 @@
     });
     
     // 超时处理（10秒）
-    setTimeout(() => {
+    let timeoutId = setTimeout(() => {
       const iframe = document.querySelector('iframe.giscus-frame');
       if (!iframe) {
         document.getElementById('giscus').innerHTML = `
           <div style="padding:20px;text-align:center;border:1px solid #ffd166;border-radius:8px;background:#fff9e6;">
             <p style="color:#e67700;">评论加载超时</p>
-            <p style="font-size:0.9em;">可能原因：</p>
-            <ul style="text-align:left;display:inline-block;margin:10px auto;">
-              <li>网络连接问题</li>
-              <li>GitHub API限制</li>
-              <li>页面路径未匹配</li>
-            </ul>
-            <button onclick="location.reload()" style="padding:8px 16px;background:#ffd166;color:#333;border:none;border-radius:4px;cursor:pointer;">
-              刷新重试
+            <p style="font-size:0.9em;">当前路径: ${pagePath}</p>
+            <button onclick="location.reload()" style="padding:8px 16px;background:#ffd166;color:#333;border:none;border-radius:4px;cursor:pointer;margin-top:10px;">
+              刷新页面
             </button>
           </div>
         `;
       }
     }, 10000);
+    
+    // 清除超时计时器
+    script.onload = function() {
+      clearTimeout(timeoutId);
+    };
   })();
 </script>
 <style>
-  /* 原有样式保持不变 */
+  /* 移除自定义主题样式 - 完全依赖Giscus主题 */
+  /* 只保留必要的布局样式 */
+  .giscus, .giscus-frame {
+    width: 100%;
+    min-height: 300px;
+    border: none;
+  }
+  
+  /* 确保加载状态可见 */
+  .giscus-error {
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 8px;
+    background: #fff5f5;
+    border: 1px solid #ffd6d6;
+  }
 </style>
 <noscript>请启用JavaScript查看评论</noscript>
     </article>
@@ -626,14 +667,30 @@
     const themeLight = 'light';
     const themeDark = 'dark-dimmed';
     
-    // 关键修复：使用 pathname 而不是 url
-    // 并添加 URL 规范化
+    // 关键修复：解决路径乱码问题
     const canonicalLink = document.querySelector('link[rel="canonical"]');
-    const pageUrl = canonicalLink ? canonicalLink.href : window.location.href;
-    const cleanUrl = new URL(pageUrl);
-    cleanUrl.hash = '';
-    cleanUrl.search = '';
-    const normalizedPath = cleanUrl.pathname; // 只使用路径部分
+    let pagePath = window.location.pathname;
+    
+    // 如果canonical链接存在且有效，优先使用
+    if (canonicalLink) {
+      try {
+        const canonicalUrl = new URL(canonicalLink.href);
+        pagePath = canonicalUrl.pathname;
+      } catch (e) {
+        console.error('解析canonical链接失败:', e);
+      }
+    }
+    
+    // 规范化路径 - 解决乱码问题
+    // 1. 移除多余的编码
+    // 2. 确保路径格式正确
+    pagePath = decodeURIComponent(pagePath)  // 先解码
+      .replace(/[^\x00-\x7F]/g, "")         // 移除非ASCII字符
+      .replace(/\s+/g, "-")                 // 空格转连字符
+      .replace(/\/{2,}/g, "/")              // 移除多余斜杠
+      .toLowerCase();                       // 统一小写
+    
+    console.log("使用的路径:", pagePath);
     
     // 创建脚本元素
     const script = document.createElement('script');
@@ -642,9 +699,9 @@
     script.setAttribute('data-repo-id', 'R_kbDOPE-twg');
     script.setAttribute('data-category', 'Announcements');
     script.setAttribute('data-category-id', 'DIC_kwDOPE-tws4Csoq3');
-    script.setAttribute('data-mapping', 'pathname'); // 修复：改为 pathname
-    script.setAttribute('data-term', normalizedPath); // 使用规范化的路径
-    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-mapping', 'pathname');
+    script.setAttribute('data-term', pagePath); // 使用规范化的路径
+    script.setAttribute('data-strict', '0'); // 强制设为0，允许自动创建
     script.setAttribute('data-reactions-enabled', '1');
     script.setAttribute('data-emit-metadata', '0');
     script.setAttribute('data-input-position', 'top');
@@ -664,6 +721,7 @@
       const iframe = document.querySelector('iframe.giscus-frame');
       if (iframe && iframe.contentWindow) {
         try {
+          // 发送主题更新消息
           iframe.contentWindow.postMessage({
             giscus: {
               setConfig: {
@@ -671,6 +729,9 @@
               }
             }
           }, 'https://giscus.app');
+          
+          // 同时更新data-theme属性
+          script.setAttribute('data-theme', theme);
         } catch (error) {
           console.error('主题更新失败:', error);
         }
@@ -681,7 +742,11 @@
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'data-user-color-scheme') {
+          // 立即更新主题
           updateGiscusTheme();
+          
+          // 添加额外延迟更新，确保生效
+          setTimeout(updateGiscusTheme, 300);
         }
       });
     });
@@ -690,12 +755,13 @@
       attributes: true
     });
     
-    // 添加错误处理
+    // 增强错误处理
     window.addEventListener('message', function(event) {
       if (event.origin === 'https://giscus.app') {
         // 处理主题更新
         if (event.data && event.data.giscus) {
           if (event.data.giscus.loading === false) {
+            // 加载完成后立即更新主题
             updateGiscusTheme();
           }
         }
@@ -716,15 +782,16 @@
                 <p>调试信息:</p>
                 <ul>
                   <li>映射方式: pathname</li>
-                  <li>路径: ${normalizedPath}</li>
+                  <li>路径: ${pagePath}</li>
                   <li>仓库: lemoon1206/lemoon1206.github.io</li>
                   <li>分类: Announcements</li>
+                  <li>主题: ${isDarkMode ? '暗色' : '亮色'}</li>
                 </ul>
               </div>
               <button onclick="location.reload()" style="padding: 8px 16px; background: #ff6b6b; color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 10px;">
                 重新加载
               </button>
-              <button onclick="window.open('https://github.com/lemoon1206/lemoon1206.github.io/discussions', '_blank')" style="padding: 8px 16px; background: #4dabf7; color: white; border: none; border-radius: 4px; cursor: pointer;">
+              <button onclick="window.open('https://github.com/lemoon1206/lemoon1206.github.io/discussions/categories/Announcements', '_blank')" style="padding: 8px 16px; background: #4dabf7; color: white; border: none; border-radius: 4px; cursor: pointer;">
                 检查讨论区
               </button>
             </div>
@@ -734,29 +801,44 @@
     });
     
     // 超时处理（10秒）
-    setTimeout(() => {
+    let timeoutId = setTimeout(() => {
       const iframe = document.querySelector('iframe.giscus-frame');
       if (!iframe) {
         document.getElementById('giscus').innerHTML = `
           <div style="padding:20px;text-align:center;border:1px solid #ffd166;border-radius:8px;background:#fff9e6;">
             <p style="color:#e67700;">评论加载超时</p>
-            <p style="font-size:0.9em;">可能原因：</p>
-            <ul style="text-align:left;display:inline-block;margin:10px auto;">
-              <li>网络连接问题</li>
-              <li>GitHub API限制</li>
-              <li>页面路径未匹配</li>
-            </ul>
-            <button onclick="location.reload()" style="padding:8px 16px;background:#ffd166;color:#333;border:none;border-radius:4px;cursor:pointer;">
-              刷新重试
+            <p style="font-size:0.9em;">当前路径: ${pagePath}</p>
+            <button onclick="location.reload()" style="padding:8px 16px;background:#ffd166;color:#333;border:none;border-radius:4px;cursor:pointer;margin-top:10px;">
+              刷新页面
             </button>
           </div>
         `;
       }
     }, 10000);
+    
+    // 清除超时计时器
+    script.onload = function() {
+      clearTimeout(timeoutId);
+    };
   })();
 </script>
 <style>
-  /* 原有样式保持不变 */
+  /* 移除自定义主题样式 - 完全依赖Giscus主题 */
+  /* 只保留必要的布局样式 */
+  .giscus, .giscus-frame {
+    width: 100%;
+    min-height: 300px;
+    border: none;
+  }
+  
+  /* 确保加载状态可见 */
+  .giscus-error {
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 8px;
+    background: #fff5f5;
+    border: 1px solid #ffd6d6;
+  }
 </style>
 <noscript>请启用JavaScript查看评论</noscript>
             <!-- Giscus 评论区 end -->
