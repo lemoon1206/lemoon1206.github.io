@@ -428,9 +428,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/07/08/%E5%A4%A9%E5%8F%B0%E6%94%AF%E6%95%99%E7%89%A9%E7%90%86%E6%95%99%E5%AD%A6%E8%AE%A1%E5%88%92/" title="支教物理教学计划">
+                      <a href="/2025/07/08/%E7%89%A9%E7%90%86%E6%95%99%E6%A1%88/" title="支教物理教案">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">支教物理教学计划</span>
+                        <span class="hidden-mobile">支教物理教案</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -454,59 +454,7 @@
   
     <article id="comments" lazyload>
       <div id="giscus" class="giscus"></div>
-<script>
-  (function() {
-    // 获取当前主题设置
-    const getCurrentTheme = () => {
-      return document.documentElement.getAttribute('data-user-color-scheme') === 'dark' 
-        ? 'dark-dimmed' 
-        : 'light';
-    };
-
-    // 创建giscus脚本
-    const initGiscus = () => {
-      // 如果已存在giscus脚本则先移除
-      const existingScript = document.querySelector('#giscus script');
-      if (existingScript) existingScript.remove();
-      
-      const script = document.createElement('script');
-      script.dataset.theme = getCurrentTheme(); // 动态设置初始主题
-      
-      
-      document.getElementById('giscus').appendChild(script);
-    };
-
-    // 更新giscus主题
-    const updateGiscusTheme = () => {
-      const iframe = document.querySelector('iframe.giscus-frame');
-      if (!iframe) return;
-      
-      const message = {
-        giscus: {
-          setConfig: {
-            theme: getCurrentTheme()
-          }
-        }
-      };
-      
-      iframe.contentWindow.postMessage(message, 'https://giscus.app');
-    };
-
-    // 初始化giscus
-    initGiscus();
-    
-    // 监听主题变化
-    const observer = new MutationObserver((mutations) => {
-      for (const mutation of mutations) {
-        if (mutation.attributeName === 'data-user-color-scheme') {
-          // 重新初始化giscus（更可靠）
-          initGiscus();
-          // 或者使用主题更新（可能在某些情况下失效）
-          // setTimeout(updateGiscusTheme, 500);
-        }
-      }
-    });
-     src="https://giscus.app/client.js"
+<script src="https://giscus.app/client.js"
         data-repo="lemoon1206/lemoon1206.github.io"
         data-repo-id="R_kgDOPE-twg"
         data-category="Announcements"
@@ -519,22 +467,6 @@
         data-lang="zh-CN"
         crossorigin="anonymous"
         async>
-
-    // 开始监听主题变化
-    observer.observe(document.documentElement, {
-      attributes: true
-    });
-  })();
-</script>
-
-<style>
-  /* 统一评论框样式 */
-  .giscus, .giscus-frame {
-    width: 100%;
-    min-height: 150px;
-    transition: background-color 0.3s ease;
-  }
-  
   /* 暗色模式样式 */
   html[data-user-color-scheme="dark"] .giscus-frame {
     color-scheme: dark;
@@ -558,59 +490,7 @@
 
             <!-- Giscus 评论区 start -->
             <div id="giscus" class="giscus"></div>
-<script>
-  (function() {
-    // 获取当前主题设置
-    const getCurrentTheme = () => {
-      return document.documentElement.getAttribute('data-user-color-scheme') === 'dark' 
-        ? 'dark-dimmed' 
-        : 'light';
-    };
-
-    // 创建giscus脚本
-    const initGiscus = () => {
-      // 如果已存在giscus脚本则先移除
-      const existingScript = document.querySelector('#giscus script');
-      if (existingScript) existingScript.remove();
-      
-      const script = document.createElement('script');
-      script.dataset.theme = getCurrentTheme(); // 动态设置初始主题
-      
-      
-      document.getElementById('giscus').appendChild(script);
-    };
-
-    // 更新giscus主题
-    const updateGiscusTheme = () => {
-      const iframe = document.querySelector('iframe.giscus-frame');
-      if (!iframe) return;
-      
-      const message = {
-        giscus: {
-          setConfig: {
-            theme: getCurrentTheme()
-          }
-        }
-      };
-      
-      iframe.contentWindow.postMessage(message, 'https://giscus.app');
-    };
-
-    // 初始化giscus
-    initGiscus();
-    
-    // 监听主题变化
-    const observer = new MutationObserver((mutations) => {
-      for (const mutation of mutations) {
-        if (mutation.attributeName === 'data-user-color-scheme') {
-          // 重新初始化giscus（更可靠）
-          initGiscus();
-          // 或者使用主题更新（可能在某些情况下失效）
-          // setTimeout(updateGiscusTheme, 500);
-        }
-      }
-    });
-     src="https://giscus.app/client.js"
+<script src="https://giscus.app/client.js"
         data-repo="lemoon1206/lemoon1206.github.io"
         data-repo-id="R_kgDOPE-twg"
         data-category="Announcements"
@@ -623,22 +503,6 @@
         data-lang="zh-CN"
         crossorigin="anonymous"
         async>
-
-    // 开始监听主题变化
-    observer.observe(document.documentElement, {
-      attributes: true
-    });
-  })();
-</script>
-
-<style>
-  /* 统一评论框样式 */
-  .giscus, .giscus-frame {
-    width: 100%;
-    min-height: 150px;
-    transition: background-color 0.3s ease;
-  }
-  
   /* 暗色模式样式 */
   html[data-user-color-scheme="dark"] .giscus-frame {
     color-scheme: dark;
