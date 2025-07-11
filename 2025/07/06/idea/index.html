@@ -533,17 +533,6 @@
       }
     });
     
-    // 初始加载后检查
-    setTimeout(() => {
-      const iframe = document.querySelector('iframe.giscus-frame');
-      if (!iframe) {
-        document.getElementById('giscus').innerHTML = `
-          <div class="giscus-error" style="padding: 20px; text-align: center; border: 1px solid #ffd166; border-radius: 8px; background: #fff9e6;">
-            <p style="color: #e67700;">评论加载超时，请刷新页面重试</p>
-          </div>
-        `;
-      }
-    }, 5000);
   })();
 </script>
 <style>
@@ -657,17 +646,6 @@
       }
     });
     
-    // 初始加载后检查
-    setTimeout(() => {
-      const iframe = document.querySelector('iframe.giscus-frame');
-      if (!iframe) {
-        document.getElementById('giscus').innerHTML = `
-          <div class="giscus-error" style="padding: 20px; text-align: center; border: 1px solid #ffd166; border-radius: 8px; background: #fff9e6;">
-            <p style="color: #e67700;">评论加载超时，请刷新页面重试</p>
-          </div>
-        `;
-      }
-    }, 5000);
   })();
 </script>
 <style>
