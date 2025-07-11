@@ -432,135 +432,20 @@
   
   
     <article id="comments" lazyload>
-      <script></script>
-  (function() {
-    // 获取当前主题设置
-    const isDarkMode = document.documentElement.getAttribute('data-user-color-scheme') === 'dark';
-    
-     从主题配置中获取主题名称（提供默认值）
-    const themeLight = 'light';
-    const themeDark = 'dark_dimmed'; // 确保使用 dark_dimmed
-  src="https://giscus.app/client.js"
+      <script src="https://giscus.app/client.js"
         data-repo="lemoon1206/lemoon1206.github.io"
         data-repo-id="R_kgDOPE-twg"
         data-category="General"
-        data-category-id="DIC_kwDOPE-tws4Csog4"
+        data-category-id="DIC_kwDOPE-tws4Csog3"
         data-mapping="pathname"
         data-strict="0"
         data-reactions-enabled="1"
         data-emit-metadata="0"
         data-input-position="top"
+        data-theme="preferred_color_scheme"
         data-lang="zh-CN"
         crossorigin="anonymous"
         async>
-        script.setAttribute('data-theme', isDarkMode ? themeDark : themeLight); // 动态设置主题
-        // 添加到DOM
-    document.getElementById('giscus').appendChild(script);
-    
-    // 定义主题更新函数
-    function updateGiscusTheme() {
-      const isDark = document.documentElement.getAttribute('data-user-color-scheme') === 'dark';
-      const theme = isDark ? themeDark : themeLight;
-      
-      const iframe = document.querySelector('iframe.giscus-frame');
-      if (iframe && iframe.contentWindow) {
-        try {
-          iframe.contentWindow.postMessage({
-            giscus: {
-              setConfig: {
-                theme: theme
-              }
-            }
-          }, 'https://giscus.app');
-        } catch (error) {
-          console.error('主题更新失败:', error);
-        }
-      }
-    }
-    
-    // 监听主题变化
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'data-user-color-scheme') {
-          // 使用更高效的消息通知方式
-          updateGiscusTheme();
-        }
-      });
-    });
-    
-    // 开始监听主题变化
-    observer.observe(document.documentElement, {
-      attributes: true
-    });
-    
-    // 添加额外的主题检查机制
-    const checkTheme = () => {
-      const iframe = document.querySelector('iframe.giscus-frame');
-      if (iframe) {
-        updateGiscusTheme();
-      } else {
-        setTimeout(checkTheme, 300);
-      }
-    };
-    
-    // 初始加载后检查
-    setTimeout(checkTheme, 1000);
-    
-    // 监听Giscus加载完成消息
-    window.addEventListener('message', function(event) {
-      if (event.origin === 'https://giscus.app' && event.data && event.data.giscus) {
-        if (event.data.giscus.loading === false) {
-          updateGiscusTheme();
-        }
-      }
-    });
-  })();
-</script>
-<style>
-  /* 暗主题下强制暗色评论框（使用dark_dimmed样式） */
-  html[data-user-color-scheme="dark"] .giscus,
-  html[data-user-color-scheme="dark"] .giscus-frame {
-    color-scheme: dark !important;
-    background-color: #22272e !important; /* dark_dimmed背景色 */
-    --color-canvas-default: #22272e !important;
-    --color-border-default: #444c56 !important;
-    --color-text-primary: #adbac7 !important;
-    --color-btn-bg: #373e47 !important;
-    --color-btn-hover-bg: #444c56 !important;
-  }
-  
-  /* 亮主题下强制亮色评论框 */
-  html[data-user-color-scheme="light"] .giscus,
-  html[data-user-color-scheme="light"] .giscus-frame {
-    color-scheme: light !important;
-    background-color: #ffffff !important;
-    --color-canvas-default: #ffffff !important;
-    --color-border-default: #d0d7de !important;
-    --color-text-primary: #24292f !important;
-    --color-btn-bg: #f6f8fa !important;
-    --color-btn-hover-bg: #eaeef2 !important;
-  }
-  
-  /* 确保覆盖所有内容 */
-  .giscus, .giscus-frame {
-    background-color: inherit !important;
-    color: inherit !important;
-    transition: background-color 0.3s ease, color 0.3s ease !important;
-  }
-  
-  /* 隐藏主题切换按钮 */
-  .giscus .giscus-header .giscus-button {
-    display: none !important;
-  }
-  
-  /* 确保输入框样式正确 */
-  .giscus .giscus-input {
-    background-color: var(--color-canvas-default) !important;
-    border-color: var(--color-border-default) !important;
-    color: var(--color-text-primary) !important;
-  }
-</style>
-<noscript>请启用JavaScript查看评论</noscript>
 </script>
     </article>
   
@@ -568,135 +453,20 @@
 
 
             <!-- Giscus 评论区 start -->
-            <script></script>
-  (function() {
-    // 获取当前主题设置
-    const isDarkMode = document.documentElement.getAttribute('data-user-color-scheme') === 'dark';
-    
-     从主题配置中获取主题名称（提供默认值）
-    const themeLight = 'light';
-    const themeDark = 'dark_dimmed'; // 确保使用 dark_dimmed
-  src="https://giscus.app/client.js"
+            <script src="https://giscus.app/client.js"
         data-repo="lemoon1206/lemoon1206.github.io"
         data-repo-id="R_kgDOPE-twg"
         data-category="General"
-        data-category-id="DIC_kwDOPE-tws4Csog4"
+        data-category-id="DIC_kwDOPE-tws4Csog3"
         data-mapping="pathname"
         data-strict="0"
         data-reactions-enabled="1"
         data-emit-metadata="0"
         data-input-position="top"
+        data-theme="preferred_color_scheme"
         data-lang="zh-CN"
         crossorigin="anonymous"
         async>
-        script.setAttribute('data-theme', isDarkMode ? themeDark : themeLight); // 动态设置主题
-        // 添加到DOM
-    document.getElementById('giscus').appendChild(script);
-    
-    // 定义主题更新函数
-    function updateGiscusTheme() {
-      const isDark = document.documentElement.getAttribute('data-user-color-scheme') === 'dark';
-      const theme = isDark ? themeDark : themeLight;
-      
-      const iframe = document.querySelector('iframe.giscus-frame');
-      if (iframe && iframe.contentWindow) {
-        try {
-          iframe.contentWindow.postMessage({
-            giscus: {
-              setConfig: {
-                theme: theme
-              }
-            }
-          }, 'https://giscus.app');
-        } catch (error) {
-          console.error('主题更新失败:', error);
-        }
-      }
-    }
-    
-    // 监听主题变化
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'data-user-color-scheme') {
-          // 使用更高效的消息通知方式
-          updateGiscusTheme();
-        }
-      });
-    });
-    
-    // 开始监听主题变化
-    observer.observe(document.documentElement, {
-      attributes: true
-    });
-    
-    // 添加额外的主题检查机制
-    const checkTheme = () => {
-      const iframe = document.querySelector('iframe.giscus-frame');
-      if (iframe) {
-        updateGiscusTheme();
-      } else {
-        setTimeout(checkTheme, 300);
-      }
-    };
-    
-    // 初始加载后检查
-    setTimeout(checkTheme, 1000);
-    
-    // 监听Giscus加载完成消息
-    window.addEventListener('message', function(event) {
-      if (event.origin === 'https://giscus.app' && event.data && event.data.giscus) {
-        if (event.data.giscus.loading === false) {
-          updateGiscusTheme();
-        }
-      }
-    });
-  })();
-</script>
-<style>
-  /* 暗主题下强制暗色评论框（使用dark_dimmed样式） */
-  html[data-user-color-scheme="dark"] .giscus,
-  html[data-user-color-scheme="dark"] .giscus-frame {
-    color-scheme: dark !important;
-    background-color: #22272e !important; /* dark_dimmed背景色 */
-    --color-canvas-default: #22272e !important;
-    --color-border-default: #444c56 !important;
-    --color-text-primary: #adbac7 !important;
-    --color-btn-bg: #373e47 !important;
-    --color-btn-hover-bg: #444c56 !important;
-  }
-  
-  /* 亮主题下强制亮色评论框 */
-  html[data-user-color-scheme="light"] .giscus,
-  html[data-user-color-scheme="light"] .giscus-frame {
-    color-scheme: light !important;
-    background-color: #ffffff !important;
-    --color-canvas-default: #ffffff !important;
-    --color-border-default: #d0d7de !important;
-    --color-text-primary: #24292f !important;
-    --color-btn-bg: #f6f8fa !important;
-    --color-btn-hover-bg: #eaeef2 !important;
-  }
-  
-  /* 确保覆盖所有内容 */
-  .giscus, .giscus-frame {
-    background-color: inherit !important;
-    color: inherit !important;
-    transition: background-color 0.3s ease, color 0.3s ease !important;
-  }
-  
-  /* 隐藏主题切换按钮 */
-  .giscus .giscus-header .giscus-button {
-    display: none !important;
-  }
-  
-  /* 确保输入框样式正确 */
-  .giscus .giscus-input {
-    background-color: var(--color-canvas-default) !important;
-    border-color: var(--color-border-default) !important;
-    color: var(--color-text-primary) !important;
-  }
-</style>
-<noscript>请启用JavaScript查看评论</noscript>
 </script>
             <!-- Giscus 评论区 end -->
           </article>
