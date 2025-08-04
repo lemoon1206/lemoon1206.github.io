@@ -4,12 +4,18 @@
   
   
   <entry>
-    <title></title>
-    <link href="/2025/07/12/Web%E5%BC%80%E5%8F%91/"/>
-    <url>/2025/07/12/Web%E5%BC%80%E5%8F%91/</url>
+    <title>web开发</title>
+    <link href="/2025/08/04/Web%E5%BC%80%E5%8F%91/"/>
+    <url>/2025/08/04/Web%E5%BC%80%E5%8F%91/</url>
     
     <content type="html"><![CDATA[<p>Web开发</p><p>进度条：</p><p>7.17：完成day1 git html&amp;css入门 workshop0的about页设计</p><p>MIT web development course</p><p><a href="https://elo.mit.edu/iap/">IAP – MIT ELO</a></p><p>课程视频：<a href="https://www.youtube.com/">https://www.youtube.com/</a></p><p>课程网站：<a href="https://weblab.mit.edu/">https://weblab.mit.edu/</a></p><p>作业：<a href="https://github.com/weblab-workshops">weblab-workshops</a></p><p>javascript练习网站：<a href="https://www.jschallenger.com/javascript-practice">https://www.jschallenger.com/javascript-practice</a></p><p>piazza:<a href="https://piazza.com/">https://piazza.com/</a></p><p>csstricks网址：weblab.is&#x2F;flex</p><p>2025</p><p>完成了 2025 的课程。<br>所有的课程视频在 youtube 上都有，所有的作业在课题组的github上也能找到，对非MIT学生很友好。<br>完全没有基础的也可以学（因为作业的每一步都有答案）。如果有点基础的话，可以1.5倍速快速浏览视频然后做课程项目。<br>预计学时：35 小时 - 50 小时</p><p>基本上是一个网站制作速成课。课程介绍的东西都很浅显易懂，包括：</p><ol><li>基础 HTML + CSS + Javascript</li><li>前端 React.js 基础</li><li>后端 Express.js 简介</li><li>后端数据库 mongodb + mongoose （mongodb云数据库可以免费注册，使用时记得挂梯子）</li><li>后端 serverless：Next.js （一个很小的示例项目 bank-statement-viewer）</li><li>websocket + canvas （做一个类似 agar.io 的多人即时在线游戏）</li><li>Git 简介</li><li>Google Auth API</li></ol><p>2025 课程视频在 <a href="https://www.youtube.com/@mitweblab/videos">https://www.youtube.com/@mitweblab/videos</a> 上可以找到。除了有一个视频录像窗口错误，没录到编程环节，其他视频都没问题。<br>2025 课程的作业（实验项目）在 <a href="https://github.com/weblab-workshops/catbook-react">https://github.com/weblab-workshops/catbook-react</a> 里，git checkout 指定分支即可。<br>特别注意：全程挂梯子可以解决99%的疑难问题。（尤其是连接云端MongoDB、使用 Google Auth API 等场景）</p><p>到课程结束时，学生会实现一个本地网站的前后端，最终效果见：<a href="https://weblab.is/example">https://weblab.is/example</a><br>包括发送评论、使用 Google Auth 登录、云端MongoDB数据库持久化数据、实时聊天室、类似 agar.io 的多人即时在线游戏等。</p>]]></content>
     
+    
+    <categories>
+      
+      <category>杂</category>
+      
+    </categories>
     
     
   </entry>
